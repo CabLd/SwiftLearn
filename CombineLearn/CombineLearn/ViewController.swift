@@ -17,13 +17,26 @@ class MyCustomTableCell: UITableViewCell {
         return button;
     }()
     
+    let action = PassthroughSubject<String, Never>()
+    
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(button)
+        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
     }
     
+    @objc private func didTapButton() {
+        action.send("Cool! Button was tapped!")
+    }
+    	
     required init?(coder: NSCoder) {
         fatalError()
+    }
+     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        button.frame = CGRect(x: 10, y: 3, width: contentView.frame.size.width-20, height: contentView.frame.size.height-6)
     }
     
     
@@ -38,7 +51,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     private var models = [String]()
     
-    var observer: AnyCancellable?
+    var observer: [AnyCancellable] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +59,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         tableView.dataSource = self
         tableView.frame = view.bounds
         
-        observer = ApiCaller.shared.fetchCompanies().receive(on: DispatchQueue.main).sink(receiveCompletion: { completion in
+        ApiCaller.shared.fetchCompanies().receive(on: DispatchQueue.main).sink(receiveCompletion: { completion in
             switch completion {
             case .finished:
                 print("finished")
@@ -56,7 +69,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         }, receiveValue: { [weak self] value in
             self?.models = value
             self?.tableView.reloadData()
-        })
+        }).store(in: &observer)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -68,7 +81,11 @@ class ViewController: UIViewController, UITableViewDataSource {
         else{
             fatalError()
         }
-        cell.textLabel?.text = models[indexPath.row]
+        cell.action.sink { string in
+            print(string)
+        }.store(in: &observer)
+
+        // cell.textLabel?.text = models[indexPath.row]
         return cell
     }
     
