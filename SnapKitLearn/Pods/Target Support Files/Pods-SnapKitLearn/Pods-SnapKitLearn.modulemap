@@ -1,0 +1,6 @@
+module Pods_SnapKitLearn {
+  umbrella header "Pods-SnapKitLearn-umbrella.h"
+
+  export *
+  module * { export * }
+}
