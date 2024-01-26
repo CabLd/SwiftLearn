@@ -26,7 +26,7 @@ class Networker {
     init() {
         session = URLSession(configuration: URLSessionConfiguration.default)
     }
-    
+
     // 获得句子的函数
     // 需要传递一个闭包函数实现错误 + 句子的返回 
     // 由于请求需要时间，该方法必须异步执行 逃逸闭包
