@@ -81,7 +81,6 @@
 		2CB9F64F2B552B0B00C7E7FA = {
 			isa = PBXGroup;
 			children = (
-				2CB9F68B2B552E2000C7E7FA /* ApiCaller.swift */,
 				2CB9F65A2B552B0B00C7E7FA /* CombineLearn */,
 				2CB9F6712B552B0C00C7E7FA /* CombineLearnTests */,
 				2CB9F67B2B552B0C00C7E7FA /* CombineLearnUITests */,
@@ -104,6 +103,7 @@
 			children = (
 				2CB9F65B2B552B0B00C7E7FA /* AppDelegate.swift */,
 				2CB9F65D2B552B0B00C7E7FA /* SceneDelegate.swift */,
+				2CB9F68B2B552E2000C7E7FA /* ApiCaller.swift */,
 				2CB9F65F2B552B0B00C7E7FA /* ViewController.swift */,
 				2CB9F6612B552B0B00C7E7FA /* Main.storyboard */,
 				2CB9F6642B552B0C00C7E7FA /* Assets.xcassets */,

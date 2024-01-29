@@ -12,10 +12,13 @@ class ApiCaller {
     static let shared = ApiCaller()
     
     func fetchCompanies() -> Future<[String], Error> {
-        return Future { promixe in
-            DispatchQueue.main.asyncAfter(deadline: .now()+3) {  promixe(.success(["cat", "dog", "tiger", "lion"]))
+        return Future { promise in
+            DispatchQueue.main.asyncAfter(deadline: .now()+3) {  promise(.success(["cat", "dog", "tiger", "lion"]))
             }
         }
+//        return Future { <#@escaping (Result<Output, Error>) -> Void#> in
+//            <#code#>
+//        }
     }
     
 }
