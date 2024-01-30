@@ -59,7 +59,8 @@ class ViewController: UIViewController, UITableViewDataSource {
         tableView.dataSource = self
         tableView.frame = view.bounds
         
-        ApiCaller.shared.fetchCompanies().receive(on: DispatchQueue.main).sink(receiveCompletion: { completion in
+        ApiCaller.shared.fetchCompanies().receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
             switch completion {
             case .finished:
                 print("finished")
@@ -69,7 +70,8 @@ class ViewController: UIViewController, UITableViewDataSource {
         }, receiveValue: { [weak self] value in
             self?.models = value
             self?.tableView.reloadData()
-        }).store(in: &observer)
+        })
+        .store(in: &observer)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
