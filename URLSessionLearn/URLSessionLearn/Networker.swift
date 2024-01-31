@@ -48,10 +48,8 @@ class Networker {
                 }
                 return
             }
-            
-            
+
             // 处理错误
-            
             guard let httpResponse = response as? HTTPURLResponse
             else {
                 DispatchQueue.main.async {

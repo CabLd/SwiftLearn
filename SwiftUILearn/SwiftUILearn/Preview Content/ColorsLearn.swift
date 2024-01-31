@@ -11,7 +11,7 @@ struct ColorsLearn: View {
     var body: some View {
         Rectangle()
             .frame(width: 200, height: 50)
-            .fill(Color.red)
+            // .fill(Color.red)
     }
 }
 
