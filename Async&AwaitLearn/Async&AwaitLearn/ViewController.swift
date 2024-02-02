@@ -34,7 +34,6 @@ class ViewController: UIViewController, UITableViewDataSource {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             let users = try JSONDecoder().decode([User].self, from: data)
-
             return .success(users)
         } catch {
             return .failure(error)
@@ -47,17 +46,21 @@ class ViewController: UIViewController, UITableViewDataSource {
         view.addSubview(tableView)
         tableView.frame = view.bounds
         tableView.dataSource = self
-        async {
+        Task.init {
             let result = await fetchUsers()
             switch result {
             case .success(let users):
                 self.users = users
                 DispatchQueue.main.async {
+                    print("finish")
                     self.tableView.reloadData()
                 }
             case .failure(let error):
                 print(error)
             }
+        }
+        for i in 1..<10 {
+            print(i)
         }
     }
 

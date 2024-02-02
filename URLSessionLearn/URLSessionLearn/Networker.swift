@@ -39,7 +39,6 @@ class Networker {
          
         let task = session.dataTask(with: request) {
             (data: Data?, response: URLResponse?, error: Error?) in
-            
             // 发现错误直接结束掉
             if let error = error {
                 // 放入主线程异步执行
@@ -48,7 +47,6 @@ class Networker {
                 }
                 return
             }
-
             // 处理错误
             guard let httpResponse = response as? HTTPURLResponse
             else {
